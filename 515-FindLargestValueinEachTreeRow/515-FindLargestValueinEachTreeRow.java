@@ -1,4 +1,4 @@
-// Last updated: 5/8/2025, 7:42:58 pm
+// Last updated: 5/8/2025, 7:43:14 pm
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -23,18 +23,18 @@ class Solution {
         queue.offer(root);
 
         while (!queue.isEmpty()) {
-            int size = queue.size();          // Number of nodes in current level
+            int size = queue.size();         
             int max = Integer.MIN_VALUE;
 
             for (int i = 0; i < size; i++) {
-                TreeNode node = queue.poll(); // Take a node
-                max = Math.max(max, node.val); // Update max
+                TreeNode node = queue.poll(); 
+                max = Math.max(max, node.val);
 
                 if (node.left != null) queue.offer(node.left);
                 if (node.right != null) queue.offer(node.right);
             }
 
-            result.add(max); // Add largest of current level
+            result.add(max); 
         }
 
         return result;
