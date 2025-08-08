@@ -1,4 +1,4 @@
-// Last updated: 8/8/2025, 11:14:08 pm
+// Last updated: 8/8/2025, 11:19:58 pm
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -15,26 +15,16 @@
  * }
  */
 class Solution {
-    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        List<List<Integer>> ans = new ArrayList<>();
-        findSum(root, targetSum, 0, ans, new ArrayList<>());
-        return ans;
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return CreateBST(nums,0,nums.length-1);
     }
-
-    private void findSum(TreeNode root, int target, int sum,List<List<Integer>> ans, List<Integer> curr) {
-
-        if (root == null) return;
-
-        sum += root.val;
-        curr.add(root.val);
-
-        if (root.left == null && root.right == null && sum == target) {
-            ans.add(new ArrayList<>(curr));
-        }
-
-        findSum(root.left, target, sum, ans, curr);
-        findSum(root.right, target, sum, ans, curr);
-
-        curr.remove(curr.size() - 1);
+    public TreeNode CreateBST(int[] nums ,int si, int ei){
+        if(si>ei)return null;
+        int mid = si+(ei-si)/2;
+        TreeNode root = new TreeNode();
+        root.val = nums[mid];
+        root.left = CreateBST(nums,si,mid-1);
+        root.right = CreateBST(nums,mid+1,ei);
+        return root;
     }
 }
