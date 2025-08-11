@@ -1,4 +1,4 @@
-// Last updated: 11/8/2025, 8:22:09 pm
+// Last updated: 11/8/2025, 8:23:04 pm
 /*
 // Definition for a Node.
 class Node {
@@ -24,24 +24,30 @@ class Node {
 
 class Solution {
     public Node connect(Node root) {
-        if(root==null)return root;
-        Queue<Node> q = new LinkedList<>();
-        q.add(root);
-        while(!q.isEmpty()){
-            int size = q.size();
-            while(size-->0){
-                Node nn = q.poll();
-                if(size!=0){
-                    nn.next = q.peek();
+        if (root == null) {
+            return root;
+        }
+        Node ans = root;
+        Queue<Node> queue = new LinkedList<>();
+        Node currentNode = root;
+        queue.offer(root);
+        int levelsize = 0;
+        while(!queue.isEmpty()){
+            levelsize = queue.size();
+            for(int i = 0 ; i < levelsize ; i++ ){
+                currentNode = queue.poll();
+                if(currentNode.left != null){
+                    queue.offer(currentNode.left);
                 }
-                if(nn.left!=null){
-                    q.add(nn.left);
+                if(currentNode.right!= null){
+                    queue.offer(currentNode.right);
                 }
-                if(nn.right!=null){
-                    q.add(nn.right);
+                if(i < levelsize -1){
+                    currentNode.next = queue.peek();
                 }
             }
+            currentNode.next = null;
         }
-        return root;       
+        return ans;
     }
 }
