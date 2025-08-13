@@ -1,4 +1,4 @@
-// Last updated: 13/8/2025, 11:33:16 am
+// Last updated: 13/8/2025, 12:13:02 pm
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -15,32 +15,20 @@
  * }
  */
 class Solution {
-		int Camera = 0;
-		public int minCameraCover(TreeNode root) {
-			int c  = minCamera(root);
-			if(c==-1) {
-				Camera++;
-			}
-			return Camera;
-
-		}
-
-		public int minCamera(TreeNode root) {
-			if(root==null)return 0;
-			
-			int left = minCamera(root.left);
-			int right = minCamera(root.right);
-			if(left==-1 || right==-1) {
-				Camera++;
-				return 1; 
-			}
-			else if(left==1 || right ==1) { 
-				return 0;
-			} 
-			else {
-				return -1; 
-			}
-
-		}
-
-	}
+			int ans = 0;
+		    public int distributeCoins(TreeNode root) {
+		        minmove(root);
+		        return ans;
+		    }
+		    public int minmove(TreeNode root) {
+		    	if(root ==null) {
+		    		return 0;
+		    	}
+		    	
+		    	int left = minmove(root.left);
+		    	int right = minmove(root.right);
+		    	ans = ans+Math.abs(left)+Math.abs(right);
+		    	return root.val+left+right-1;
+		    }
+		    
+}
