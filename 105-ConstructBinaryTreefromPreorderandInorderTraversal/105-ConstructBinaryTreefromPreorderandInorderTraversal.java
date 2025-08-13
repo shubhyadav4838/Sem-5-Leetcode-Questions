@@ -1,4 +1,4 @@
-// Last updated: 13/8/2025, 10:50:21 am
+// Last updated: 13/8/2025, 11:33:16 am
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -15,29 +15,32 @@
  * }
  */
 class Solution {
-		    public TreeNode buildTree(int[] preorder, int[] inorder) {
-		    	return createTree(inorder, preorder ,0,inorder.length-1,0,preorder.length-1);
-		        
-		    }
-		    public TreeNode createTree(int[] in, int[] pre,int ilo, int ihi, int plo, int phi) {
-		    	if(ilo>ihi || plo>phi) {
-		    		return null;
-		    	}
-		    	TreeNode node = new TreeNode(pre[plo]);
-		    	int idx = search(in,ilo,ihi,pre[plo]);
-		    	int c = idx-ilo;
-		    	node.left = createTree(in,pre,ilo,idx-1,plo+1,plo+c);
-		    	node.right = createTree(in,pre,idx+1,ihi,plo+c+1,phi);
-		    	return node;
-		    	
-		    }
-		    public int search(int[] in,int ilo,int ihi, int item) {
-		    	for(int i=ilo;i<=ihi;i++) {
-		    		if(in[i]==item) {
-		    			return i;
-		    		}
-		    	}
-		    	return 0;
-		    	
-		    }
+		int Camera = 0;
+		public int minCameraCover(TreeNode root) {
+			int c  = minCamera(root);
+			if(c==-1) {
+				Camera++;
+			}
+			return Camera;
+
 		}
+
+		public int minCamera(TreeNode root) {
+			if(root==null)return 0;
+			
+			int left = minCamera(root.left);
+			int right = minCamera(root.right);
+			if(left==-1 || right==-1) {
+				Camera++;
+				return 1; 
+			}
+			else if(left==1 || right ==1) { 
+				return 0;
+			} 
+			else {
+				return -1; 
+			}
+
+		}
+
+	}
