@@ -1,4 +1,4 @@
-// Last updated: 18/8/2025, 11:26:23 pm
+// Last updated: 19/8/2025, 12:04:52 am
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -16,19 +16,25 @@
  */
 class Solution {
     public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
-        if(root1==null)
-        {
-            return root2;
-        }
-        if(root2==null)
-        {
-            return root1;
-        }
+       return nyaTree(root1,root2);
+    }
+    public TreeNode nyaTree(TreeNode root1, TreeNode root2){
+        TreeNode nyaNode =null;
+        if(root1==null && root2 == null) return nyaNode;
+        if(root1==null){
+            nyaNode = new TreeNode(root2.val);
+            nyaNode.left=nyaTree(null,root2.left);
+            nyaNode.right = nyaTree(null,root2.right);
+        }else if (root2==null){
+            nyaNode = new TreeNode(root1.val);
+            nyaNode.left=nyaTree(root1.left,null);
+            nyaNode.right = nyaTree(root1.right,null);
 
-        root1.val += root2.val;
-        root1.left = mergeTrees(root1.left,root2.left);
-        root1.right = mergeTrees(root1.right,root2.right);
-
-        return root1;
+        }else{
+            nyaNode = new TreeNode(root1.val+root2.val);
+            nyaNode.left=nyaTree(root1.left,root2.left);
+            nyaNode.right = nyaTree(root1.right,root2.right);
+        }
+        return nyaNode;
     }
 }
