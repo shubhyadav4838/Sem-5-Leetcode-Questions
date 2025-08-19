@@ -1,84 +1,30 @@
-// Last updated: 20/8/2025, 1:21:26 am
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
- /**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
+// Last updated: 20/8/2025, 1:22:07 am
 class Solution {
     int max = 0;
+
     public TreeNode lcaDeepestLeaves(TreeNode root) {
-        maxHeight(root,0);
-        return deep(root,0).anc;
-        
+        if (root == null) return null;
+        max = 0;
+        calcMax(root, 1);          
+        return deep(root, 1);     
     }
-    public void maxHeight(TreeNode root, int curr){
-        if(root==null)return ;
 
-        if(max<curr){
-            max=curr;
-        }
-        maxHeight(root.left,curr+1);
-        maxHeight(root.right,curr+1);
-
+    private void calcMax(TreeNode node, int curr) {
+        if (node == null) return;
+        if (curr > max) max = curr;
+        calcMax(node.left, curr + 1);
+        calcMax(node.right, curr + 1);
     }
-    public Pair deep(TreeNode root, int curr){
-        if(root==null)return new Pair();
 
-        Pair left = deep(root.left,curr+1);
-        Pair right = deep(root.right,curr+1);
-        Pair self = new Pair();
+    public TreeNode deep(TreeNode root, int curr) {
+        if (root == null) return null;
 
-        if (curr == max) {
-            self.isdeep = true;
-            self.anc = root;
-            return self;
-        }
+        if (curr == max) return root;  
 
-        if (left.isdeep && right.isdeep) {
-            self.isdeep = true;
-            self.anc = root;
-        }
-        else if (left.isdeep) {
-            self.isdeep = true;
-            self.anc = left.anc;
-        }
-        else if (right.isdeep) {
-            self.isdeep = true;
-            self.anc = right.anc;
-        }
+        TreeNode left = deep(root.left, curr + 1);
+        TreeNode right = deep(root.right, curr + 1);
 
-        return self;
-
+        if (left != null && right != null) return root;
+        return (left != null) ? left : right;   
     }
-    class Pair{
-        boolean isdeep = false;
-        TreeNode anc = null;
-
-    }
-    
 }
