@@ -1,4 +1,4 @@
-// Last updated: 27/8/2025, 11:01:29 pm
+// Last updated: 27/8/2025, 11:01:43 pm
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -24,7 +24,6 @@ class Solution {
     public void ben10(TreeNode root, boolean gp, boolean p){
         if(root==null) return;
         if(gp){
-            System.out.print(root.val+" ");
             sum+=root.val;
         }
         ben10(root.left,p,root.val%2==0);
