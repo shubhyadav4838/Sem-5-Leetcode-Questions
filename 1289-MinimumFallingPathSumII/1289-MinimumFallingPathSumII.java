@@ -1,4 +1,4 @@
-// Last updated: 10/9/2025, 12:34:50 pm
+// Last updated: 10/9/2025, 12:35:57 pm
 class Solution {
     public int minFallingPathSum(int[][] matrix) {
         int ans = Integer.MAX_VALUE;
@@ -13,9 +13,7 @@ class Solution {
         
     }
     public static int minFalling(int[][] matrix,int cr,int cc,int[][] dp) {
-		if(cc<0 || cc>=matrix[0].length) {
-			return Integer.MAX_VALUE;
-		}
+		
 		if(cr==matrix.length -1) {
 			return matrix[cr][cc];
 		}
