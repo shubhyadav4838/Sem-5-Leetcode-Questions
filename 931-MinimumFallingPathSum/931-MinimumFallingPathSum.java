@@ -1,4 +1,4 @@
-// Last updated: 10/9/2025, 12:20:55 pm
+// Last updated: 10/9/2025, 12:21:13 pm
 class Solution {
     public int minFallingPathSum(int[][] matrix) {
         int ans = Integer.MAX_VALUE;
