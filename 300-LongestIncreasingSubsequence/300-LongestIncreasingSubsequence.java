@@ -1,32 +1,36 @@
-// Last updated: 3/8/2025, 11:58:57 pm
+// Last updated: 17/9/2025, 12:07:32 pm
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        return LongestSequence(nums);
+        return LIS(nums);
     }
-    public static int LongestSequence(int[]arr) {
-		int []ans = new int[arr.length];
-		int res = 0;
-		for(int i=0; i<arr.length; i++) {
-			ans[i] = 1;
-		}
-		for(int i=1; i<arr.length; i++) {
-			for(int j=0; j<i; j++) {
-				if(arr[i]>arr[j]) {
-					int to_store=ans[j]+1;;
-					if(ans[i]<=to_store) {
-						ans[i] = to_store;
-					}
-					
-				}
+    public static int LIS(int[] arr) {
+		int[] dp = new int[arr.length];
+		int len = 1;
+		dp[0] = arr[0];
+		for(int i=1;i<dp.length;i++) {
+			if(arr[i]>dp[len-1]) {
+				dp[len] = arr[i];
+				len++;
 				
+			}else {
+				int idx = BinarySearch(dp,0,len-1,arr[i]);
+				dp[idx] = arr[i];
 			}
 		}
-		for(int x: ans) {
-			if(res<x) {
-				res = x;
+		return len;
+	}
+	private static int BinarySearch(int[] dp, int si, int ei, int item) {
+		// TODO Auto-generated method stub
+		int idx = 0;
+		while(si<=ei) {
+			int mid = (si+ei)/2;
+			if(dp[mid]>=item) {
+				idx = mid;
+				ei = mid-1;
+			}else {
+				si = mid+1;	
 			}
 		}
-		return res;
-		
+		return idx;
 	}
 }
