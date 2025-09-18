@@ -1,4 +1,4 @@
-// Last updated: 18/9/2025, 11:37:22 pm
+// Last updated: 19/9/2025, 12:03:39 am
 class Solution {
     public int jump(int[] nums) {
         if (nums.length == 0) {
