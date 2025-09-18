@@ -1,22 +1,50 @@
-// Last updated: 18/9/2025, 11:27:26 pm
+// Last updated: 18/9/2025, 11:37:22 pm
 class Solution {
     public int jump(int[] nums) {
-        int[] dp = new int[nums.length];
-        Arrays.fill(dp,-1);
-        return minJump(nums,0,dp);
-    }
-    public static int minJump(int[] arr, int idx, int[] dp){
-        if(idx>=arr.length-1){
+        if (nums.length == 0) {
             return 0;
         }
-        if(dp[idx]!=-1){
-            return dp[idx];
+
+        if (nums.length == 1) {
+            return 0;
         }
 
-        int ans =1000000;
-        for(int i = 1;i<=arr[idx];i++){
-            ans = Math.min(minJump(arr,idx+i, dp),ans);
+        return recursiveSearch(nums, 0);
+    }
+
+    // search, at track the index
+    
+
+    // [4,1,1,3,1,1,1]
+    // 
+    public int recursiveSearch(int[] nums, int currentIndex) {
+        // find the max step possible
+        if (nums[currentIndex] == 0) {
+            return Integer.MIN_VALUE;
         }
-        return dp[idx] = ans+1;
+
+        if (currentIndex == nums.length - 1) {
+            return 0;
+        }
+
+        // exit case
+        if (currentIndex + nums[currentIndex] >= nums.length - 1) {
+            return 1; // 1 more jump
+        }
+
+        // case where current index = 0
+        int maxIndex = currentIndex;
+        int maxJump = 0;
+        for (int index = currentIndex + 1; index <= currentIndex + nums[currentIndex]; index++) {
+
+            // store next
+            if (index + nums[index] >= maxJump) {
+                maxIndex = index;
+                maxJump = index + nums[index];
+            }
+        }
+
+        // jumping
+        return 1 + recursiveSearch(nums, maxIndex);
     }
 }
