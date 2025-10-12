@@ -1,4 +1,4 @@
-// Last updated: 12/10/2025, 11:45:57 pm
+// Last updated: 12/10/2025, 11:46:15 pm
 class Solution {
     public int sumDivisibleByK(int[] nums, int k) {
         int[] freq = new int[101];
