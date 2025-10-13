@@ -1,4 +1,4 @@
-// Last updated: 14/10/2025, 1:27:54 am
+// Last updated: 14/10/2025, 1:28:14 am
 class Solution {
     public int findLongestChain(int[][] pairs) {
         Arrays.sort(pairs,(a,b)->a[1]-b[1]);
@@ -17,7 +17,7 @@ class Solution {
         }
 
         if(dp[i][pre]!=-10000){
-            return dp[i][pre];
+            return dp[i][pre+1];
         }
 
         int a=0,b=0;
