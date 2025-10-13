@@ -1,4 +1,4 @@
-// Last updated: 11/10/2025, 12:30:44 am
+// Last updated: 14/10/2025, 12:55:47 am
 class Solution {
     public int wiggleMaxLength(int[] arr) {
         if(arr.length==1)return 1;
@@ -7,9 +7,30 @@ class Solution {
         int i=0;
         while(i<arr.length-1 && arr[i]==arr[i+1])i++;
     	
-        return wiggle(0,i,1,arr,dp);
+        // return wiggle(0,i,1,arr,dp);
+        return wiggleBU(arr);
         
     }
+
+    public static int wiggleBU(int[] arr){
+        if(arr.length==1){
+            return 1;
+        }
+        int up = 1;
+        int down = 1;
+        for(int i=1;i<arr.length;i++){
+            if(arr[i]>arr[i-1]){
+                up = down+1;
+            }else if(arr[i]<arr[i-1]){
+                down = up+1;
+            }
+        }
+        return Math.max(up,down);
+    }
+
+
+
+
    public static int wiggle(int diff, int i, int len, int[] arr, int[] dp) {
 		while (i < arr.length - 1 && arr[i] == arr[i + 1])
 			i++;
