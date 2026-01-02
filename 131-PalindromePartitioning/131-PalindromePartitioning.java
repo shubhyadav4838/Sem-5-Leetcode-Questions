@@ -1,4 +1,4 @@
-// Last updated: 3/1/2026, 12:49:00 am
+// Last updated: 3/1/2026, 12:49:13 am
 1class Solution {
 2    public List<List<String>> partition(String s) {
 3        Scanner sc = new Scanner(System.in);
