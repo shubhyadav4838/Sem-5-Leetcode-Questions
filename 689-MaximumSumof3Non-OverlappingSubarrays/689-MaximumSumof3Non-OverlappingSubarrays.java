@@ -1,4 +1,4 @@
-// Last updated: 8/1/2026, 8:30:50 pm
+// Last updated: 9/1/2026, 12:21:02 pm
 1class Solution {
 2    public int[] maxSumOfThreeSubarrays(int[] nums, int k) {
 3
