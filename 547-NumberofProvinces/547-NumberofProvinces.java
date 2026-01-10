@@ -1,4 +1,4 @@
-// Last updated: 10/1/2026, 1:45:14 pm
+// Last updated: 10/1/2026, 1:50:35 pm
 1class Solution {
 2    public static HashMap<Integer, ArrayList<Integer>> map;
 3
@@ -22,34 +22,33 @@
 21		int idx = 0;
 22		
 23		for (int i = 0; i < arr.length; i++) {
-24			for (int j = 0; j < arr[0].length; j++) {
-25				add(arr[i][1], arr[i][0]);
-26				indegree[arr[i][0]]++;
-27			}
-28		}
-29		for(int i = 0;i<indegree.length;i++) {
-30			if(indegree[i]==0) {
-31				q.add(i);
-32			}
-33		}
-34		
-35		while(!q.isEmpty()) {
-36			int r = q.poll();
-37			ans[idx++] = r;
-38			count++;
-39			
-40			for(int nbrs: map.get(r)) {
-41				indegree[nbrs]--;
-42				if(indegree[nbrs]==0) {
-43					q.add(nbrs);
-44				}
-45			}
-46		}
-47		if(num!=count) {
-48			return new int[0];
-49		}
-50		return ans;
+24				add(arr[i][1], arr[i][0]);
+25				indegree[arr[i][0]]++;
+26			
+27		}
+28		for(int i = 0;i<indegree.length;i++) {
+29			if(indegree[i]==0) {
+30				q.add(i);
+31			}
+32		}
+33		
+34		while(!q.isEmpty()) {
+35			int r = q.poll();
+36			ans[idx++] = r;
+37			count++;
+38			
+39			for(int nbrs: map.get(r)) {
+40				indegree[nbrs]--;
+41				if(indegree[nbrs]==0) {
+42					q.add(nbrs);
+43				}
+44			}
+45		}
+46		if(num!=count) {
+47			return new int[0];
+48		}
+49		return ans;
+50		
 51		
-52		
-53	}
-54}
+52	}
+53}
