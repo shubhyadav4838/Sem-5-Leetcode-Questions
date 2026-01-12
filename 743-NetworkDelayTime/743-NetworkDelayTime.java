@@ -1,54 +1,46 @@
-// Last updated: 12/1/2026, 2:06:49 pm
+// Last updated: 12/1/2026, 3:44:53 pm
 1class Solution {
-2    public int networkDelayTime(int[][] times, int n, int k) {
-3        // 1. Build Graph using Adjacency List (Array of Lists)
-4        // graph[i] contains list of {neighbor, weight}
-5        List<int[]>[] graph = new ArrayList[n + 1];
-6        for (int i = 1; i <= n; i++) {
-7            graph[i] = new ArrayList<>();
-8        }
-9        for (int[] edge : times) {
-10            graph[edge[0]].add(new int[]{edge[1], edge[2]});
-11        }
-12
-13        // 2. Distance Array (Replacement for Visited Set)
-14        int[] dist = new int[n + 1];
-15        Arrays.fill(dist, Integer.MAX_VALUE);
-16        dist[k] = 0; // Distance to source is 0
-17
-18        // 3. Priority Queue: Stores {node, cost_to_reach_node}
-19        // Min-Heap based on cost
-20        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
-21        pq.add(new int[]{k, 0});
-22
-23        while (!pq.isEmpty()) {
-24            int[] curr = pq.poll();
-25            int u = curr[0];
-26            int d = curr[1];
-27
-28            // OPTIMIZATION: If we found a shorter path to 'u' already, skip this stale entry
-29            if (d > dist[u]) continue;
-30
-31            // Explore neighbors
-32            for (int[] edge : graph[u]) {
-33                int v = edge[0];
-34                int w = edge[1];
+2   static class Pair {
+3		int src;
+4		int des;
+5		int dis;
+6
+7		public Pair(int src, int des, int dis) {
+8			this.src = src;
+9			this.des = des;
+10			this.dis = dis;
+11		}
+12	}
+13
+14	public static int minCostConnectPoints(int[][] arr) {
+15		PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> a.dis - b.dis);
+16		HashSet<Integer> visited = new HashSet<>();
+17		pq.add(new Pair(0, 0, 0));
+18		int ans = 0;
+19		while (!pq.isEmpty()) {
+20			Pair r = pq.poll();
+21			if (visited.contains(r.src))
+22				continue;
+23			visited.add(r.src);
+24			ans += r.dis;
+25//			System.out.println(r.src + " " + r.des + " " + r.dis);
+26
+27			for (int j = 0; j < arr.length; j++) {
+28				if (!visited.contains(j)) {
+29
+30					int dist = distance( j,r.src, arr);
+31					pq.add(new Pair(j, r.src, dist));
+32				}
+33
+34			}
 35
-36                // RELAXATION: Only push if we found a strictly better path
-37                if (dist[u] + w < dist[v]) {
-38                    dist[v] = dist[u] + w;
-39                    pq.add(new int[]{v, dist[v]});
-40                }
-41            }
-42        }
-43
-44        // 4. Find the max distance in the array
-45        int maxWait = 0;
-46        for (int i = 1; i <= n; i++) {
-47            if (dist[i] == Integer.MAX_VALUE) return -1; // Unreachable node
-48            maxWait = Math.max(maxWait, dist[i]);
-49        }
-50
-51        return maxWait;
-52    }
-53}
+36		}
+37		return ans;
+38
+39	}
+40
+41	private static int distance(int i, int j, int[][] arr) {
+42		// TODO Auto-generated method stub
+43		return Math.abs(arr[i][0] - arr[j][0]) + Math.abs(arr[i][1] - arr[j][1]);
+44	}
+45}
