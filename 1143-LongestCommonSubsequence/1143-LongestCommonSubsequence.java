@@ -1,16 +1,16 @@
-// Last updated: 6/1/2026, 3:56:44 pm
+// Last updated: 17/1/2026, 2:46:56 pm
 1class Solution {
-2    public static int longestCommonSubsequence(String s1, String s2) {
-3		int[][] dp = new int[s2.length()+1][s1.length()+1];
-4		for(int row = 1;row<dp.length;row++) {
-5			for(int col = 1; col<dp[0].length;col++) {
-6				if(s1.charAt(col-1)==s2.charAt(row-1)) {
-7					dp[row][col] = dp[row-1][col-1]+1;
-8				}else {
-9					dp[row][col] = Math.max(dp[row-1][col], dp[row][col-1]);
-10				}
-11			}
-12		}
-13		return dp[dp.length-1][dp[0].length-1];
-14	}
+2    public int longestCommonSubsequence(String text1, String text2) {
+3        int[][] dp = new int[text1.length()+1][text2.length()+1];
+4        for(int i = 1;i<=text1.length();i++){
+5            for(int j = 1;j<=text2.length();j++){
+6                if(text1.charAt(i-1)==text2.charAt(j-1)){
+7                    dp[i][j] = 1+dp[i-1][j-1];
+8                }else{
+9                    dp[i][j] = Math.max(dp[i-1][j],dp[i][j-1]);
+10                }
+11            }
+12        }
+13        return dp[text1.length()][text2.length()];
+14    }
 15}
