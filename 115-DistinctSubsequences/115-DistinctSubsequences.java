@@ -1,4 +1,4 @@
-// Last updated: 19/1/2026, 8:10:26 pm
+// Last updated: 19/1/2026, 11:13:25 pm
 1class Solution {
 2    public static int numDistinct(String s, String t) {
 3		int n = s.length();
@@ -8,7 +8,7 @@
 7		for (int i = 0; i <= n; i++) {
 8			dp[i][0] = 1;
 9		}
-10		dp[0][0] = 1;
+10		
 11		for (int i = 1; i <= n; i++) {
 12			for (int j = 1; j <= m; j++) {
 13				dp[i][j] = dp[i - 1][j];
