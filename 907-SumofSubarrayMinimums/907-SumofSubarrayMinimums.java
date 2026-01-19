@@ -1,4 +1,4 @@
-// Last updated: 29/11/2025, 1:49:09 am
+// Last updated: 19/1/2026, 11:27:59 am
 1class Solution {
 2    public int sumSubarrayMins(int[] arr) {
 3        return subMin(arr);
