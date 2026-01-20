@@ -1,20 +1,18 @@
-// Last updated: 20/1/2026, 2:44:33 pm
+// Last updated: 20/1/2026, 2:53:36 pm
 class Solution {
     public int minRemoval(int[] nums, int k) {
-
-        if(nums.length == 1) return 0;
-
+        int n = nums.length;
         Arrays.sort(nums);
-        int res = Integer.MAX_VALUE;
-
-        int l = 0;
-        for(int i = 1; i < nums.length; i++){
-            while(1L * nums[l] * k < nums[i]){
-                l++;
+        int i=0;
+        int j=0;
+        int maxSize = 0;
+        while(j<n){
+            while((long)nums[i]*k < (long)nums[j]){
+                i++;
             }
-            res = Math.min(res, nums.length - (i - l + 1));
+            maxSize = Math.max(maxSize,j-i+1);
+            j++;
         }
-
-        return res;
+        return n-maxSize;
     }
 }
