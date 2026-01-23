@@ -1,23 +1,28 @@
-// Last updated: 23/1/2026, 10:43:39 pm
+// Last updated: 23/1/2026, 11:45:41 pm
 1class Solution {
-2    public int minPathSum(int[][] grid) {
-3        int m = grid.length, n = grid[0].length;
-4
-5        for (int col = 1; col < n; col++) {
-6            grid[0][col] += grid[0][col - 1];
-7        }
-8
-9        for (int row = 1; row < m; row++) {
-10            grid[row][0] += grid[row - 1][0];
-11        }
-12
-13        for (int row = 1; row < m; row++) {
-14            for (int col = 1; col < n; col++) {
-15                grid[row][col] += Math.min(grid[row - 1][col], grid[row][col - 1]);
-16            }
-17        }
-18
-19        return grid[m - 1][n - 1];
-20    }
-21}
-22
+2    public int calculateMinimumHP(int[][] dungeon) {
+3        int m = dungeon.length;
+4        int n = dungeon[0].length;
+5        
+6        int[][] dp = new int[m + 1][n + 1];
+7        
+8        for (int[] row : dp) {
+9            Arrays.fill(row, Integer.MAX_VALUE);
+10        }
+11        
+12        dp[m][n - 1] = 1;
+13        dp[m - 1][n] = 1;
+14        
+15        for (int i = m - 1; i >= 0; i--) {
+16            for (int j = n - 1; j >= 0; j--) {
+17
+18                int minFutureHealth = Math.min(dp[i + 1][j], dp[i][j + 1]);
+19                int needed = minFutureHealth - dungeon[i][j];
+20                
+21                dp[i][j] = Math.max(1, needed);
+22            }
+23        }
+24        
+25        return dp[0][0];
+26    }
+27}
