@@ -1,4 +1,4 @@
-// Last updated: 25/1/2026, 3:50:03 pm
+// Last updated: 25/1/2026, 4:03:25 pm
 1class Solution {
 2    public int maxEnvelopes(int[][] arr) {
 3       Arrays.sort(arr,(a,b)->{
@@ -10,7 +10,7 @@
 9		
 10		
 11		int n = arr.length;
-12		int[] dp = new int[n+1];
+12		int[] dp = new int[n];
 13		dp[0] = arr[0][1];
 14		int len = 0;
 15		for(int i = 1;i<n;i++) {
@@ -38,7 +38,6 @@
 37				
 38			}
 39		}
-40		
-41		return lo;
-42	}
-43}
+40		return lo;
+41	}
+42}
