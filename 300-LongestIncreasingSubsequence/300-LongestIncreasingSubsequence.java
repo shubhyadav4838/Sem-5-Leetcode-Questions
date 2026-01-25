@@ -1,35 +1,44 @@
-// Last updated: 25/1/2026, 3:04:36 pm
+// Last updated: 25/1/2026, 3:50:03 pm
 1class Solution {
-2    public static int lengthOfLIS(int[] arr) {
-3		int n = arr.length;
-4		int[] dp = new int[n+1];
-5		dp[0] = arr[0];
-6		int len = 1;
-7		for(int i = 1;i<n;i++) {
-8			if(dp[len-1]<arr[i]) {
-9				dp[len] = arr[i];
-10				len++;
-11			}else {
-12				int idx = search(dp,0,len-1,arr[i]);
-13				dp[idx] = arr[i];
-14			}
-15		}
-16		return len;
-17		
-18	}
-19
-20	private static int search(int[] dp, int lo, int hi, int target) {
-21		// TODO Auto-generated method stub
-22		int ans = 0;
-23		while(lo<=hi) {
-24			int mid = (lo+hi)/2;
-25			if(dp[mid]>=target) {
-26				ans = mid;
-27				hi = mid-1;
-28			}else {
-29				lo = mid+1;
-30			}
-31		}
-32		return ans;
-33	}
-34}
+2    public int maxEnvelopes(int[][] arr) {
+3       Arrays.sort(arr,(a,b)->{
+4			if(a[0]==b[0]) {
+5				return b[1]-a[1];
+6			}
+7			return a[0]-b[0];
+8		});
+9		
+10		
+11		int n = arr.length;
+12		int[] dp = new int[n+1];
+13		dp[0] = arr[0][1];
+14		int len = 0;
+15		for(int i = 1;i<n;i++) {
+16			int height = arr[i][1];
+17			if( dp[len]<height )  {
+18				len++;
+19				dp[len] = height;
+20			}else {
+21				int idx = search(dp,0,len,height);
+22                dp[idx] = height;
+23				
+24			}
+25		}
+26		return len+1;
+27        
+28    }
+29   private static int search(int[] dp, int lo, int hi,int height) {
+30		// TODO Auto-generated method stub
+31		while(lo<hi) {
+32			int mid = (lo+hi)/2;
+33			if(dp[mid]<height) {
+34				lo = mid+1;
+35			}else {
+36				hi = mid;
+37				
+38			}
+39		}
+40		
+41		return lo;
+42	}
+43}
