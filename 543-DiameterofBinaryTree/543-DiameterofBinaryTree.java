@@ -1,4 +1,4 @@
-// Last updated: 29/1/2026, 6:06:02 pm
+// Last updated: 29/1/2026, 6:36:00 pm
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -15,9 +15,9 @@
 14 * }
 15 */
 16class Solution {
-17    public static int diameterOfBinaryTree(TreeNode root) {
-18		return solve(root).ans;
-19	}
+17    public static int maxPathSum(TreeNode root) {
+18        return solve(root).ans;
+19    }
 20	
 21	public static Pair solve(TreeNode root) {
 22		if(root==null) {
@@ -26,21 +26,23 @@
 25		
 26		Pair left = solve(root.left);
 27		Pair right = solve(root.right);
-28		
-29		Pair self = new Pair();
-30		self.ht = Math.max(left.ht, right.ht)+1;
-31		int ans = left.ht+right.ht;
-32		self.ans = Math.max(left.ans, right.ans);
-33		if(ans>self.ans) {
-34			self.ans = ans;
-35		}
-36		return self;
-37	}
-38	
-39	
-40	
-41	static class Pair{
-42		int ht = 0;
-43		int ans = 0;
-44	}
-45}
+28		Pair self = new Pair();
+29		
+30		self.path = Math.max(root.val, root.val+ Math.max(left.path, right.path));
+31        self.ans = Math.max(right.ans,left.ans);
+32        
+33        int ans = Math.max(self.path, root.val+left.path+right.path);
+34		if(ans>self.ans) {
+35			self.ans = ans;
+36		}
+37		
+38		return self;
+39		
+40	}
+41	
+42	static class Pair{
+43		int path =-999999;
+44		int ans = -999999;
+45	}
+46
+47}
