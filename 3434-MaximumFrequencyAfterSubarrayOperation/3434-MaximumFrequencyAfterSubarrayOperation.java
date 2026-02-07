@@ -1,4 +1,4 @@
-// Last updated: 6/2/2026, 1:32:03 pm
+// Last updated: 7/2/2026, 10:09:56 pm
 1class Solution {
 2    public int maxFrequency(int[] nums, int k) {
 3        HashMap<Integer,Integer> map = new HashMap<>();
