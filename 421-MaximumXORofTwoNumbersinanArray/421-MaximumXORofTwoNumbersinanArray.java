@@ -1,4 +1,4 @@
-// Last updated: 11/2/2026, 12:42:51 pm
+// Last updated: 11/2/2026, 12:42:57 pm
 1class Solution {
 2    public int findMaximumXOR(int[] arr) {
 3        Trie t = new Trie();
