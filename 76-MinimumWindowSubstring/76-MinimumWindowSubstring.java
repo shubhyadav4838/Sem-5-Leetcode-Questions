@@ -1,43 +1,51 @@
-// Last updated: 1/1/2026, 3:58:50 pm
+// Last updated: 16/2/2026, 1:59:56 am
 class Solution {
-    static {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try (FileWriter fw = new FileWriter("display_runtime.txt")) {
-                fw.write("0");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }));
-    }
     public String minWindow(String s, String t) {
-        int cnt[] = new int[256];
-        int req = 0;
-        for(int c:t.toCharArray())cnt[c]++;
-        for(int i = 0;i<256;i++){
-            if(cnt[i]>0)req++;
+        
+        Map<Character, Integer> mp = new HashMap<>();
+        
+        int start = 0;
+        int minLength = Integer.MAX_VALUE;
+        int i = 0;
+        int j = 0;
+        // cnt will track if characters of t is in current window of s
+        int cnt = 0;
+
+        for(int k=0;k<t.length();k++) {
+            mp.put(t.charAt(k), mp.getOrDefault(t.charAt(k), 0)+1);
         }
 
-        int curr[] = new int[256];
+        while(j<s.length()) {
+            char ch = s.charAt(j);
 
-        System.out.println(req);
-        int match = 0;
-        int n = s.length(), l = 0,left = -1, right = n;
-        for(int i = 0;i<n;i++){
-            int it = s.charAt(i);
-            curr[it]++;
-            if(curr[it] == cnt[it])match++;
-
-            while(match == req){
-                if(i-l+1<right-left+1){
-                    left = l;right = i;
+            if(mp.containsKey(ch)) {
+                mp.put(ch, mp.get(ch) - 1);
+                if(mp.get(ch)>=0) {
+                    cnt++;
                 }
-                int c = s.charAt(l++);
-                if(cnt[c] == curr[c])match--;
-                curr[c]--;
-
             }
+
+            while(cnt == t.length()) {
+                if(j - i + 1 < minLength) {
+                    minLength = j - i + 1;
+                    start = i;
+                }
+
+                char leftChar = s.charAt(i);
+                if(mp.containsKey(leftChar)) {
+                    mp.put(leftChar, mp.get(leftChar) + 1);
+                    if(mp.get(leftChar)>0) {
+                        cnt--;
+                    }
+                }
+                i++;
+            }
+            j++;
         }
 
-        return left == -1?"":s.substring(left,right+1);
+        if(minLength==Integer.MAX_VALUE) {
+            return "";
+        }
+        return s.substring(start, start + minLength);
     }
 }
