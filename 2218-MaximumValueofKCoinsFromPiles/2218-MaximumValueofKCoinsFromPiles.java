@@ -1,4 +1,4 @@
-// Last updated: 21/2/2026, 12:51:52 am
+// Last updated: 21/2/2026, 12:52:01 am
 1class Solution {
 2    public int maxValueOfCoins(List<List<Integer>> piles, int k) {
 3        Long[][] dp = new Long[piles.size() + 1][k + 1];
