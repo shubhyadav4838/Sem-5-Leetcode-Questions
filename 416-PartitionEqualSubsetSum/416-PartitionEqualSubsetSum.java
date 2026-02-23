@@ -1,4 +1,4 @@
-// Last updated: 22/2/2026, 10:07:44 pm
+// Last updated: 23/2/2026, 4:41:06 pm
 1class Solution {
 2    public boolean canPartition(int[] arr) {
 3        int sum = 0;
