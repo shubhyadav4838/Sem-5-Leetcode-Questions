@@ -1,44 +1,28 @@
-// Last updated: 24/2/2026, 3:58:31 pm
+// Last updated: 24/2/2026, 4:20:26 pm
 1class Solution {
-2    class Pair {
-3        int vtx;
-4        int dis;
-5
-6        public Pair(int vtx, int dis) {
-7            this.vtx = vtx;
-8            this.dis = dis;
-9        }
-10    }
-11
-12    public boolean isBipartite(int[][] graph) {
-13
-14        Queue<Pair> q = new LinkedList<>();
-15        HashMap<Integer, Integer> visited = new HashMap<>();
-16
-17        for (int i = 0; i < graph.length; i++) {
-18            if (visited.containsKey(i)) {
-19                continue;
-20            }
-21            q.add(new Pair(i, 0));
-22
-23            while (!q.isEmpty()) {
-24                Pair c = q.poll();
+2    public int[] maxSlidingWindow(int[] arr, int k) {
+3        int n = arr.length;
+4        if(n==0 || k==0){
+5            return new int[0];
+6        }
+7        Deque<Integer> dq = new ArrayDeque<>();
+8        int[] ans = new int[arr.length-k+1];
+9        int idx = 0;
+10
+11        for(int i = 0;i<n;i++){
+12            if(!dq.isEmpty() && dq.peekFirst()<= i-k ){
+13                dq.pollFirst();
+14            }
+15
+16            while(!dq.isEmpty() &&  arr[i]>=arr[dq.peekLast()]){
+17                dq.pollLast();
+18            }
+19            dq.addLast(i);
+20            if(i>=k-1){
+21                ans[idx++] = arr[dq.peekFirst()];
+22            }
+23        }
+24        return ans;
 25
-26                if (visited.containsKey(c.vtx)) {
-27                    if (visited.get(c.vtx) != c.dis) {
-28                        return false;
-29                    }
-30                    continue;
-31                }
-32                visited.put(c.vtx, c.dis);
-33
-34                for (int x : graph[c.vtx]) {
-35                    if (!visited.containsKey(x)) {
-36                        q.add(new Pair(x, c.dis + 1));
-37                    }
-38                }
-39            }
-40        }
-41        return true;
-42    }
-43}
+26    }
+27}
