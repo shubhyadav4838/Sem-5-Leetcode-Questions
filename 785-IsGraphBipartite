@@ -1,50 +1,44 @@
-// Last updated: 16/10/2025, 11:44:24 am
-class Solution {
-		public boolean isBipartite(int[][] graph) {
-			Queue<BipartitePair> q = new LinkedList<>();
-			HashMap<Integer, Integer> visited = new HashMap<>();
-			for (int i = 0; i < graph.length; i++) { // vtx mil jayege
-				if(visited.containsKey(i)) {
-					continue;
-				}
-				q.add(new BipartitePair(i,0));
-				
-				while(!q.isEmpty()) {
-					// 1. Remove
-					BipartitePair rp = q.poll();
-					
-					// 2. Ignore if Already Visited
-					if(visited.containsKey(rp.vtx)) {
-						if(visited.get(rp.vtx)!=rp.dis) {
-							return false;
-						}
-						continue;
-						
-					}
-					
-					// 3. Marked Visited
-					visited.put(rp.vtx, rp.dis);
-					
-					// 4. Self Work
-					// 5. Add Unvisited nbrs
-					for(int nbrs:graph[rp.vtx]) {
-						if(!visited.containsKey(nbrs)) {
-							q.add(new BipartitePair(nbrs,rp.dis+1));
-						}
-					}
-				}
-				
-			}
-			return true;
-
-		}
-	}
-
-	class BipartitePair {
-		int vtx;
-		int dis;
-		public BipartitePair(int vtx,int dis) {
-			this.vtx = vtx;
-			this.dis = dis;
-		}
-	}
+// Last updated: 24/2/2026, 3:58:31 pm
+1class Solution {
+2    class Pair {
+3        int vtx;
+4        int dis;
+5
+6        public Pair(int vtx, int dis) {
+7            this.vtx = vtx;
+8            this.dis = dis;
+9        }
+10    }
+11
+12    public boolean isBipartite(int[][] graph) {
+13
+14        Queue<Pair> q = new LinkedList<>();
+15        HashMap<Integer, Integer> visited = new HashMap<>();
+16
+17        for (int i = 0; i < graph.length; i++) {
+18            if (visited.containsKey(i)) {
+19                continue;
+20            }
+21            q.add(new Pair(i, 0));
+22
+23            while (!q.isEmpty()) {
+24                Pair c = q.poll();
+25
+26                if (visited.containsKey(c.vtx)) {
+27                    if (visited.get(c.vtx) != c.dis) {
+28                        return false;
+29                    }
+30                    continue;
+31                }
+32                visited.put(c.vtx, c.dis);
+33
+34                for (int x : graph[c.vtx]) {
+35                    if (!visited.containsKey(x)) {
+36                        q.add(new Pair(x, c.dis + 1));
+37                    }
+38                }
+39            }
+40        }
+41        return true;
+42    }
+43}
