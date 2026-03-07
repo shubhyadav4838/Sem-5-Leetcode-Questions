@@ -1,20 +1,20 @@
-// Last updated: 7/3/2026, 11:50:54 am
-1class Solution {
-2    public int minimumDifference(int[] nums) {
-3        int n = nums.length / 2;
-4        int totalSum = 0;
-5        for (int num : nums) {
-6            totalSum += num;
-7        }
-8
-9        List<Integer>[] left = new ArrayList[n + 1];
-10        List<Integer>[] right = new ArrayList[n + 1];
-11        for (int i = 0; i <= n; i++) {
-12            left[i] = new ArrayList<>();
-13            right[i] = new ArrayList<>();
-14        }
-15
-16       
+// Last updated: 7/3/2026, 11:55:43 am
+1
+2class Solution {
+3    public int minimumDifference(int[] nums) {
+4        int n = nums.length / 2;
+5        int totalSum = 0;
+6        for (int num : nums) {
+7            totalSum += num;
+8        }
+9
+10        List<Integer>[] left = new ArrayList[n + 1];
+11        List<Integer>[] right = new ArrayList[n + 1];
+12        for (int i = 0; i <= n; i++) {
+13            left[i] = new ArrayList<>();
+14            right[i] = new ArrayList<>();
+15        }
+16
 17        for (int mask = 0; mask < (1 << n); mask++) {
 18            int sz = 0;
 19            int lSum = 0;
@@ -38,33 +38,41 @@
 37        int minDiff = Integer.MAX_VALUE;
 38        int targetSum = totalSum / 2;
 39
-40       
-41        for (int i = 0; i <= n; i++) {
-42            List<Integer> rList = right[n - i];
-43            
-44            for (int a : left[i]) {
-45                int bTarget = targetSum - a;
-46                
-47                
-48                int pos = Collections.binarySearch(rList, bTarget);
-49                if (pos < 0) {
-50                    pos = -(pos + 1); 
-51                }
-52                
-53                
-54                if (pos < rList.size()) {
-55                    int b = rList.get(pos);
-56                    minDiff = Math.min(minDiff, Math.abs(totalSum - 2 * (a + b)));
-57                }
-58                
-59               
-60                if (pos > 0) {
-61                    int b = rList.get(pos - 1);
-62                    minDiff = Math.min(minDiff, Math.abs(totalSum - 2 * (a + b)));
-63                }
-64            }
-65        }
-66
-67        return minDiff;
-68    }
-69}
+40        for (int i = 0; i <= n; i++) {
+41            List<Integer> rList = right[n - i];
+42            
+43            for (int a : left[i]) {
+44                int bTarget = targetSum - a;
+45                
+46                int low = 0;
+47                int high = rList.size() - 1;
+48                
+49                while (low <= high) {
+50                    int mid = low + (high - low) / 2;
+51                    if (rList.get(mid) == bTarget) {
+52                        low = mid;
+53                        break;
+54                    } else if (rList.get(mid) < bTarget) {
+55                        low = mid + 1;
+56                    } else {
+57                        high = mid - 1;
+58                    }
+59                }
+60                
+61                int pos = low;
+62                
+63                if (pos < rList.size()) {
+64                    int b = rList.get(pos);
+65                    minDiff = Math.min(minDiff, Math.abs(totalSum - 2 * (a + b)));
+66                }
+67                
+68                if (pos > 0) {
+69                    int b = rList.get(pos - 1);
+70                    minDiff = Math.min(minDiff, Math.abs(totalSum - 2 * (a + b)));
+71                }
+72            }
+73        }
+74
+75        return minDiff;
+76    }
+77}
