@@ -1,43 +1,24 @@
-// Last updated: 15/3/2026, 10:33:26 pm
+// Last updated: 15/3/2026, 10:48:15 pm
 1class Solution {
-2    public int minCostConnectPoints(int[][] points) {
-3        int n = points.length;
-4    
-5        int[] minDist = new int[n];
-6        Arrays.fill(minDist, Integer.MAX_VALUE);
-7        
-8        boolean[] visited = new boolean[n];
-9        
-10        minDist[0] = 0;
-11        int ans = 0;
-12        
-13        for (int i = 0; i < n; i++) {
-14            
-15            int u = -1;
-16            int currentMin = Integer.MAX_VALUE;
-17            
-18            for (int j = 0; j < n; j++) {
-19                if (!visited[j] && minDist[j] < currentMin) {
-20                    currentMin = minDist[j];
-21                    u = j;
-22                }
-23            }
-24            
-25            visited[u] = true;
-26            ans += currentMin;
-27            
-28            for (int v = 0; v < n; v++) {
-29                if (!visited[v]) {
-30                    int dist = Math.abs(points[u][0] - points[v][0]) + 
-31                               Math.abs(points[u][1] - points[v][1]);
-32                    
-33                    if (dist < minDist[v]) {
-34                        minDist[v] = dist;
-35                    }
-36                }
-37            }
-38        }
-39        
-40        return ans;
-41    }
-42}
+2    public int maxValueOfCoins(List<List<Integer>> piles, int k) {
+3        int n = piles.size();
+4        int[][] dp = new int[n + 1][k + 1];
+5
+6        for (int i = 1; i <= n; i++) {
+7            
+8            for (int w = 0; w <= k; w++) {
+9                
+10                dp[i][w] = dp[i - 1][w];
+11                int currentPileSum = 0;
+12                int limit = Math.min(w, piles.get(i - 1).size());
+13                
+14                for (int taken = 1; taken <= limit; taken++) {
+15                    currentPileSum += piles.get(i - 1).get(taken - 1);
+16                    dp[i][w] = Math.max(dp[i][w], dp[i - 1][w - taken] + currentPileSum);
+17                }
+18            }
+19        }
+20        
+21        return dp[n][k];
+22    }
+23}
