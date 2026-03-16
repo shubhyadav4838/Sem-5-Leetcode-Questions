@@ -1,4 +1,4 @@
-// Last updated: 14/1/2026, 11:54:33 pm
+// Last updated: 16/3/2026, 6:51:15 pm
 1class Solution {
 2    public int waysToReachTarget(int target, int[][] types) {
 3        int n = types.length;
