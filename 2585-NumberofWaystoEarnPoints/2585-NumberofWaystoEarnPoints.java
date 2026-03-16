@@ -1,33 +1,38 @@
-// Last updated: 16/3/2026, 6:51:15 pm
+// Last updated: 16/3/2026, 7:18:21 pm
 1class Solution {
-2    public int waysToReachTarget(int target, int[][] types) {
-3        int n = types.length;
-4        int MOD = 1_000_000_007;
-5        
-6        int[][] dp = new int[n + 1][target + 1];
-7        
-8        for (int i = 0; i <= n; i++) dp[i][0] = 1;
-9
-10        for (int i = 1; i <= n; i++) {
-11            int count = types[i-1][0];
-12            int marks = types[i-1][1];
-13
-14            for (int j = 0; j <= target; j++) {
-15                
-16                dp[i][j] = dp[i-1][j];
-17                
-18                for (int k = 1; k <= count; k++) {
-19                    int cost = k * marks;
-20                    
-21                    if (j >= cost) {
-22                        dp[i][j] = (dp[i][j] + dp[i-1][j - cost]) % MOD;
-23                    } else {
-24                        break; 
-25                    }
-26                }
-27            }
-28        }
-29        
-30        return dp[n][target];
-31    }
-32}
+2    static int MOD = (int) (1e9 + 7);
+3
+4    public static int waysToReachTarget(int target, int[][] types) {
+5        Integer[][] dp = new Integer[target + 1][types.length];
+6
+7        return solve(target, types, target, 0, dp);
+8
+9    }
+10
+11    public static int solve(int target, int[][] types, int remain, int idx, Integer[][] dp) {
+12        if (remain == 0) {
+13            return 1;
+14        }
+15        if (idx >= types.length || remain < 0) {
+16            return 0;
+17        }
+18
+19        if (dp[remain][idx] != null) {
+20            return dp[remain][idx];
+21        }
+22
+23        int ans = 0;
+24        int count = types[idx][0];
+25        int marks = types[idx][1];
+26        for (int i = 0; i <= count; i++) {
+27            int curr = (i) * marks;
+28            if (curr > remain)
+29                break;
+30            int req = solve(target, types, remain - curr, idx + 1, dp);
+31            ans = (ans + req) % MOD;
+32
+33        }
+34        return dp[remain][idx] = ans % MOD;
+35
+36    }
+37}
