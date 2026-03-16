@@ -1,38 +1,28 @@
-// Last updated: 16/3/2026, 7:18:21 pm
+// Last updated: 16/3/2026, 7:39:11 pm
 1class Solution {
-2    static int MOD = (int) (1e9 + 7);
-3
-4    public static int waysToReachTarget(int target, int[][] types) {
-5        Integer[][] dp = new Integer[target + 1][types.length];
-6
-7        return solve(target, types, target, 0, dp);
-8
-9    }
-10
-11    public static int solve(int target, int[][] types, int remain, int idx, Integer[][] dp) {
-12        if (remain == 0) {
-13            return 1;
-14        }
-15        if (idx >= types.length || remain < 0) {
-16            return 0;
-17        }
-18
-19        if (dp[remain][idx] != null) {
-20            return dp[remain][idx];
-21        }
-22
-23        int ans = 0;
-24        int count = types[idx][0];
-25        int marks = types[idx][1];
-26        for (int i = 0; i <= count; i++) {
-27            int curr = (i) * marks;
-28            if (curr > remain)
-29                break;
-30            int req = solve(target, types, remain - curr, idx + 1, dp);
-31            ans = (ans + req) % MOD;
-32
-33        }
-34        return dp[remain][idx] = ans % MOD;
-35
-36    }
-37}
+2    static int MOD = (int)(1e9 + 7);
+3	public static int waysToReachTarget(int target, int[][] types) {
+4		int[][] dp = new int[target+1][types.length+1];
+5		for(int i = 0;i<dp[0].length;i++) {
+6			dp[0][i] = 1;
+7		}
+8		for(int remain = 1; remain<=target; remain++) {
+9			for(int idx = types.length-1; idx>=0; idx--) {
+10				int ans = 0;
+11				
+12				int count = types[idx][0];
+13				int marks = types[idx][1];
+14				for(int i = 0; i<= count; i++) {
+15					int curr = i*marks;
+16					if(curr>remain)break;
+17					int req = dp[remain-curr][idx+1];
+18					ans = (ans+req)%MOD;
+19				}
+20				dp[remain][idx] = ans;
+21			}
+22		}
+23		
+24		return dp[target][0];
+25		
+26	}
+27}
