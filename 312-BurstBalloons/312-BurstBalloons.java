@@ -1,4 +1,4 @@
-// Last updated: 27/1/2026, 1:46:55 pm
+// Last updated: 17/3/2026, 10:23:20 am
 1class Solution {
 2    public static int maxCoins(int[] nums) {
 3		int n = nums.length;
