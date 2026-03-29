@@ -1,29 +1,16 @@
-// Last updated: 17/1/2026, 3:38:39 pm
-class Solution {
-    public int longestPalindromeSubseq(String s) {
-        int n = s.length();
-        int[][] dp = new int[n][n];
-
-        return lps(s, 0, n - 1, dp);
-    }
-
-    int lps(String s, int i, int j, int[][] dp) {
-        if (dp[i][j] != 0) {
-            return dp[i][j];
-        } else if (i > j) {
-            return 0;
-        } else if (i == j) {
-            return 1;
-        }
-
-        if (s.charAt(i) == s.charAt(j)) {
-            dp[i][j] = lps(s, i + 1, j - 1, dp) + 2;
-        } else {
-            dp[i][j] = Math.max(lps(s, i + 1, j, dp), lps(s, i, j - 1, dp));
-        }
-
-        return dp[i][j];
-    }
-
-
-}
+// Last updated: 29/3/2026, 12:45:19 pm
+1class Solution {
+2    public int longestCommonSubsequence(String text1, String text2) {
+3        int[][] dp = new int[text1.length()+1][text2.length()+1];
+4        for(int i = 1;i<=text1.length();i++){
+5            for(int j = 1;j<=text2.length();j++){
+6                if(text1.charAt(i-1)==text2.charAt(j-1)){
+7                    dp[i][j] = 1+dp[i-1][j-1];
+8                }else{
+9                    dp[i][j] = Math.max(dp[i-1][j],dp[i][j-1]);
+10                }
+11            }
+12        }
+13        return dp[text1.length()][text2.length()];
+14    }
+15}
