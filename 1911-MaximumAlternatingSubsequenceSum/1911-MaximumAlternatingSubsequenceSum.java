@@ -1,41 +1,24 @@
-// Last updated: 30/3/2026, 2:45:52 pm
+// Last updated: 30/3/2026, 3:00:50 pm
 1class Solution {
-2    public static long maxAlternatingSum(int[] arr) {
+2   public static long maxAlternatingSum(int[] arr) {
 3		int n = arr.length;
-4		long[][] dp = new long[n][2];
+4		long[][] dp = new long[n+1][2];
 5		
-6		for(long[] x:dp) {
-7			Arrays.fill(x,-1);
-8		}
-9		// mark -> 0(add), 1(sub);
-10		long ans = solve(arr,dp,0,0);
-11		return ans;
-12		
-13
-14	}
-15
-16	private static long solve(int[] arr, long[][] dp, int mark, int idx) {
-17		// TODO Auto-generated method stub
-18		if(idx>=arr.length) {
-19			return 0;
-20		}
-21		
-22		if(dp[idx][mark]!=-1) {
-23			return dp[idx][mark];
-24		}
-25		
-26		// skip the current one
-27		long skip = solve(arr,dp, mark,idx+1);
-28		long a = 0;
-29		long b = 0;
-30		
-31		if(mark==0) {
-32			a =  solve(arr,dp,1,idx+1)+arr[idx];
-33		}else {
-34			b = solve(arr,dp,0,idx+1)-arr[idx];
-35		}
-36		
-37		return dp[idx][mark] = Math.max(skip, Math.max(a, b));
-38	}
-39
-40}
+6		for(int i = n-1; i>=0; i--) {
+7			for(int j = 0; j<2; j++) {
+8				long skip = dp[i+1][j];
+9				long a = 0;
+10				long b = 0;
+11				if(j==0) {
+12					a = dp[i+1][1]+arr[i];
+13				}else {
+14					b = dp[i+1][0]-arr[i];
+15				}
+16				
+17				dp[i][j] = Math.max(skip, Math.max(a, b));
+18			}
+19		}
+20		return dp[0][0];
+21	}
+22
+23}
