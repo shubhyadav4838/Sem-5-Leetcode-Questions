@@ -1,4 +1,4 @@
-// Last updated: 22/4/2026, 1:02:49 pm
+// Last updated: 22/4/2026, 1:03:47 pm
 1class Solution {
 2    public static ArrayList<String> twoEditWords(String[] queries, String[] dict) {
 3		root = new Node('*');
