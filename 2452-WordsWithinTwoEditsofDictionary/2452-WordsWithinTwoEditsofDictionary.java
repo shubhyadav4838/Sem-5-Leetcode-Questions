@@ -1,4 +1,4 @@
-// Last updated: 22/4/2026, 1:03:47 pm
+// Last updated: 22/4/2026, 1:06:43 pm
 1class Solution {
 2    public static ArrayList<String> twoEditWords(String[] queries, String[] dict) {
 3		root = new Node('*');
@@ -31,7 +31,7 @@
 30		
 31		// Not present
 32		boolean notPresent = false;
-33		if(option>0) {
+33		if(option>0  && !present) {
 34			for(Character child :curr.map.keySet()) {
 35				notPresent = notPresent | search(s, idx+1, curr.map.get(child),option-1);
 36			}
