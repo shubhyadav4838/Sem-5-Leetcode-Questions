@@ -1,35 +1,30 @@
-// Last updated: 17/5/2026, 9:25:19 pm
+// Last updated: 19/5/2026, 10:42:10 am
 1class Solution {
-2    public boolean canReach(int[] arr, int start) {
-3        int n = arr.length;
-4
-5        Queue<Integer> q = new LinkedList<>();
-6        boolean[] vis = new boolean[n];
-7
-8        q.offer(start);
-9        vis[start] = true;
-10
-11        while(!q.isEmpty()) {
-12
-13            int i = q.poll();
-14
-15            if(arr[i] == 0)
-16                return true;
-17
-18            int forward = i + arr[i];
-19            int backward = i - arr[i];
-20
-21            if(forward < n && !vis[forward]) {
-22                vis[forward] = true;
-23                q.offer(forward);
-24            }
-25
-26            if(backward >= 0 && !vis[backward]) {
-27                vis[backward] = true;
-28                q.offer(backward);
-29            }
-30        }
-31
-32        return false;   
-33    }
-34}
+2   public static boolean canReach(int[] arr, int start) {
+3		Queue<Integer> q = new LinkedList<>();
+4		boolean[] visited = new boolean[arr.length];
+5		visited[start] = true;
+6		
+7		q.add(start);
+8		while(!q.isEmpty()) {
+9			int idx = q.poll();
+10			if(idx<0 || idx>=arr.length )continue;
+11			if(arr[idx] == 0)return true;
+12			
+13			int right = idx+arr[idx];
+14			int left = idx-arr[idx];
+15			
+16			if(right <arr.length && !visited[right]) {
+17				q.add(right);
+18				visited[right] = true;
+19			}
+20			
+21			if(left>=0 && !visited[left]) {
+22				q.add(left);
+23				visited[left] = true;
+24			}
+25			
+26		}
+27		return false;
+28	}
+29}
