@@ -1,17 +1,18 @@
-// Last updated: 19/5/2026, 10:02:43 am
-1class Solution {
-2    public int getCommon(int[] nums1, int[] nums2) {
-3        HashSet<Integer> set = new HashSet<>();
-4        for(int x:nums1){
-5            set.add(x);
-6        }
-7
-8        int res = Integer.MAX_VALUE;
-9        for(int i = 0; i<nums2.length; i++){
-10            if(set.contains(nums2[i]))res = Math.min(res,nums2[i]);
-11        }
-12
-13        return (res==Integer.MAX_VALUE ? -1:res);
-14        
-15    }
-16}
+// Last updated: 19/5/2026, 10:04:32 am
+class Solution {
+    public int getCommon(int[] nums1, int[] nums2) {
+        int nums1Pointer = 0;
+        int nums2Pointer = 0;
+        while (nums1Pointer < nums1.length && nums2Pointer < nums2.length) {
+            if (nums1[nums1Pointer] == nums2[nums2Pointer]) {
+                return nums1[nums1Pointer];
+            } else if (nums1[nums1Pointer] > nums2[nums2Pointer]) {
+                nums2Pointer++;
+            } else {
+                nums1Pointer++;
+            }
+        }
+
+        return -1;
+    }
+}
