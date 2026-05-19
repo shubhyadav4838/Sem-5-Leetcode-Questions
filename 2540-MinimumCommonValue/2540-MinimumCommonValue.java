@@ -1,18 +1,27 @@
-// Last updated: 19/5/2026, 10:04:32 am
+// Last updated: 19/5/2026, 10:05:31 am
 class Solution {
     public int getCommon(int[] nums1, int[] nums2) {
-        int nums1Pointer = 0;
-        int nums2Pointer = 0;
-        while (nums1Pointer < nums1.length && nums2Pointer < nums2.length) {
-            if (nums1[nums1Pointer] == nums2[nums2Pointer]) {
-                return nums1[nums1Pointer];
-            } else if (nums1[nums1Pointer] > nums2[nums2Pointer]) {
-                nums2Pointer++;
-            } else {
-                nums1Pointer++;
-            }
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        int i = 0;
+        int j = 0;
+         if (nums1[n1 - 1] < nums2[0] || nums2[n2 - 1] < nums1[0]) {
+            return -1;
         }
 
-        return -1;
+        while(i < n1 & j < n2)
+        {
+            if(nums1[i] == nums2[j])
+            {
+                return nums1[i];
+            }
+            else if(nums1[i] < nums2[j])
+            {
+                i++;
+            }else{
+                j++;
+            }
+        }return -1;
+        
     }
 }
