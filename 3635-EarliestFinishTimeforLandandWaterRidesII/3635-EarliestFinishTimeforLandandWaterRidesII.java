@@ -1,23 +1,23 @@
-// Last updated: 3/6/2026, 1:51:36 pm
-1class Solution {
-2    public static int earliestFinishTime(int[] lstart, int[] ldur, int[] wstart, int[] wdur) {
-3		int max = Integer.MAX_VALUE;
-4        int land = max, water = max, minl = max, minw = max;
-5        int n = lstart.length, m = wstart.length;
-6        for(int i = 0; i<n; i++){
-7            land = Math.min(land,lstart[i]+ldur[i]);
-8        }
-9
-10        for(int i=0;i<m; i++){
-11            water = Math.min(water,wstart[i]+wdur[i]);
-12            minl = Math.min(minl, Math.max(land,wstart[i])+wdur[i]);
-13        }
-14
-15        for(int i =0;i<n; i++){
-16            minw = Math.min(minw,Math.max(water,lstart[i])+ldur[i]);
-17        }
-18
-19        return Math.min(minw,minl);
-20
-21	}
-22}
+// Last updated: 3/6/2026, 1:55:12 pm
+class Solution {
+    public int earliestFinishTime(int[] landStartTime, int[] landDuration, int[] waterStartTime, int[] waterDuration) {
+        int n = landDuration.length;
+        int m = waterDuration.length;
+        int a1 = Integer.MAX_VALUE;
+        int a2 = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            a1 = Math.min(a1, landStartTime[i] + landDuration[i]);
+        }
+        for (int i = 0; i < m; i++) {
+            a2 = Math.min(a2, waterStartTime[i] + waterDuration[i]);
+        }
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            ans = Math.min(ans, Math.max(a2, landStartTime[i]) + landDuration[i]);
+        }
+        for (int i = 0; i < m; i++) {
+            ans = Math.min(ans, Math.max(a1, waterStartTime[i]) + waterDuration[i]);
+        }
+        return ans;
+    }
+}
