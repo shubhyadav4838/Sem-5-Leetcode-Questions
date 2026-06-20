@@ -1,4 +1,4 @@
-// Last updated: 20/6/2026, 12:22:58 pm
+// Last updated: 20/6/2026, 12:23:23 pm
 1class Solution {
 2    public int minimumRefill(int[] arr, int capa, int capb) {
 3        int count = 0;
@@ -29,18 +29,11 @@
 28                waterb = capb - arr[ed];
 29                count++;
 30            }
-31
-32            st++;
-33            ed--;
-34        }
-35
-36        // if(st==ed){
-37        //     if(watera>= arr[st] && waterb>=arr[ed]){
-38        //         count++;
-39        //     }
-40        // }
-41       
-42        return count;
-43        
-44    }
-45}
+31            st++;
+32            ed--;
+33        }
+34       
+35        return count;
+36        
+37    }
+38}
