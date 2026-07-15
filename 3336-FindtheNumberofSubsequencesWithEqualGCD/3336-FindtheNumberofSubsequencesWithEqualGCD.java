@@ -1,4 +1,4 @@
-// Last updated: 15/7/2026, 9:20:06 am
+// Last updated: 15/7/2026, 9:46:12 am
 1class Solution {
 2    public static int subsequencePairCount(int[] arr) {
 3		Integer[][][] dp = new Integer[arr.length][201][201];
@@ -19,8 +19,8 @@
 18		long ans = 0;
 19		ans += solve(seqa, seqb, idx+1, arr, dp)%MOD;
 20		
-21		int vala = seqa==0 ? arr[idx]: gcd(seqa,arr[idx]);
-22		int valb = seqb==0 ? arr[idx]: gcd(seqb,arr[idx]);
+21		int vala = gcd(seqa,arr[idx]);
+22		int valb = gcd(seqb,arr[idx]);
 23		
 24		ans += solve(vala, seqb, idx+1, arr, dp)%MOD;
 25		ans += solve(seqa, valb, idx+1, arr, dp)%MOD;
